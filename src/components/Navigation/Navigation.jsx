@@ -27,6 +27,17 @@ const Navigation = () => {
             className={navLink}>
             Add Post
           </NavLink>
+          <NavLink
+            to='/firestore'
+            end
+            className={navLink}>
+            FireStore App
+          </NavLink>
+          <NavLink
+            to='/firestore/add'
+            className={navLink}>
+            FireStore Add
+          </NavLink>
         </Box>
         <NavLink
           to='/login'

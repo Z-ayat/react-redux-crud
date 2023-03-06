@@ -22,16 +22,16 @@ const PostItem = ({ records, deleteRecord, isLoggedIn }) => {
         <TableCell align='left'>
           <Link
             style={{ textDecoration: 'none', color: 'inherit' }}
-            to={`/post/${id}`}>
+            to={`/firestore/post/${id}`}>
             {title}
           </Link>
         </TableCell>
         <TableCell align='left'>{content}</TableCell>
-        <TableCell align='left'>
+        <TableCell align='center'>
           <ButtonGroup>
             <Button
               variant='contained'
-              onClick={() => navigate(`/post/${id}/edit`)}
+              onClick={() => navigate(`/firestore/post/${id}/edit`)}
               color='success'>
               Edit
             </Button>

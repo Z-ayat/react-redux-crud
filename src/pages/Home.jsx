@@ -23,6 +23,7 @@ const Home = () => {
       sx={{
         padding: 2,
       }}>
+        
       <Loading
         isLoading={isLoading}
         error={error}>

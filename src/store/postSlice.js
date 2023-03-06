@@ -1,12 +1,101 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
+import {
+  collection,
+  getDocs,
+  addDoc,
+  doc,
+  deleteDoc,
+  getDoc,
+  updateDoc,
+} from 'firebase/firestore';
+import { db } from '../configs/firebase';
 const initialState = {
   records: [],
   isLoading: false,
   error: null,
   record: null,
+  posts: [],
 };
 
+// Fire Store
+export const fetchPostsWithFireStore = createAsyncThunk(
+  'posts/fetchPosts',
+  async (_, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    const postsRef = collection(db, 'posts');
+    try {
+      const data = await getDocs(postsRef);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      return filteredData;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+export const insertPostWithFireStore = createAsyncThunk(
+  'posts/insertPost',
+  async (item, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    const postsRef = collection(db, 'posts');
+    try {
+      const docRef = await addDoc(postsRef, item);
+      return { id: docRef.id, ...item };
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+export const deletePostWithFireStore = createAsyncThunk(
+  'posts/deletePost',
+  async (id, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    const postDocRef = doc(db, 'posts', id);
+    try {
+      await deleteDoc(postDocRef);
+      return id;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+export const fetchPostWithFireStore = createAsyncThunk(
+  'posts/fetchPost',
+  async (id, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    try {
+      const postRef = doc(db, 'posts', id);
+      const postDoc = await getDoc(postRef);
+      if (postDoc.exists()) {
+        return {
+          id: postDoc.id,
+          ...postDoc.data(),
+        };
+      } else {
+        throw new Error(`Post with ID ${id} does not exist.`);
+      }
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
+export const editPostWithFireStore = createAsyncThunk(
+  'posts/editPost',
+  async (item, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
+    const postRef = doc(db, 'posts', item.id);
+    try {
+      await updateDoc(postRef, { ...item });
+      return item;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+// Local Host
 export const fetchPosts = createAsyncThunk(
   'posts/fetchPosts',
   async (_, thunkAPI) => {

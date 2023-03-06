@@ -4,6 +4,10 @@ import Home from '../pages/Home.jsx';
 import Layout from '../pages/Layout.jsx';
 import React, { Suspense } from 'react';
 
+const FireStoreDetails = React.lazy(() => import('../pages/FireStoreDetails'));
+const FireStoreEdit = React.lazy(() => import('../pages/FireStoreEdit'));
+const FirestoreApp = React.lazy(() => import('../pages/FirestoreApp'));
+const FireStoreAdd = React.lazy(() => import('../pages/FireStoreAdd'));
 const AddPost = React.lazy(() => import('../pages/AddPost'));
 const PostDetails = React.lazy(() => import('../pages/PostDetails'));
 const Login = React.lazy(() => import('../pages/Login'));
@@ -59,6 +63,38 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback='Loading Please Wait'>
             <Login />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'firestore',
+        element: (
+          <Suspense fallback='Loading Please Wait'>
+            <FirestoreApp />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'firestore/add',
+        element: (
+          <Suspense fallback='Loading Please Wait'>
+            <FireStoreAdd />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'firestore/post/:id/edit',
+        element: (
+          <Suspense fallback='Loading Please Wait'>
+            <FireStoreEdit />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'firestore/post/:id',
+        element: (
+          <Suspense fallback='Loading Please Wait'>
+            <FireStoreDetails />
           </Suspense>
         ),
       },

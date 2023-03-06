@@ -22,7 +22,7 @@ const PostList = ({ records, deleteRecord, isLoggedIn }) => {
               <TableCell>ID</TableCell>
               <TableCell align='left'>Title</TableCell>
               <TableCell align='left'>Content</TableCell>
-              <TableCell align='left'>Actions</TableCell>
+              <TableCell align='center'>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
