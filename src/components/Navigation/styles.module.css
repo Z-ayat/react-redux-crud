@@ -1,0 +1,15 @@
+.navLink {
+  color: #fefefebe;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.activeLink {
+  text-decoration: underline;
+  color: #fefefe !important;
+}
+
+:global(.activeLink) {
+  color: red;
+  font-weight: bold;
+}
